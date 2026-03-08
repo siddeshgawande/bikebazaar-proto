@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="BikeBazaar – Pune's most trusted second-hand bike marketplace. Buy & sell verified bikes in Pimpri-Chinchwad, Pune and Maharashtra." />
+  <meta name="theme-color" content="#0d1117" />
+  <title>BikeBazaar – Pune's #1 Bike Marketplace</title>
+
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="manifest.json" />
+  <link rel="apple-touch-icon" href="https://placehold.co/192x192/1e3c72/ffffff?text=BB" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       NAVBAR
+  ═══════════════════════════════════════════ -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="#" class="logo">
+        <span class="logo-icon">⚡</span>
+        <span class="logo-text">Bike<span class="logo-accent">Bazaar</span></span>
+        <span class="logo-city">Pune</span>
+      </a>
+
+      <div class="nav-search-wrap">
+        <div class="nav-search">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          <input type="text" id="searchInput" placeholder="Search bike model or city…" autocomplete="off" aria-label="Search bikes" />
+          <button class="search-clear" id="searchClear" aria-label="Clear search">✕</button>
+        </div>
+      </div>
+
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Toggle dark/light mode">
+          <span class="theme-icon sun">☀️</span>
+          <span class="theme-icon moon">🌙</span>
+        </button>
+        <button class="btn btn-primary" id="addListingBtn">
+          <span>+ Sell Bike</span>
+        </button>
+      </div>
+
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+    <!-- Mobile search -->
+    <div class="mobile-search">
+      <div class="nav-search">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input type="text" id="searchInputMobile" placeholder="Search model or city…" autocomplete="off" />
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════
+       HERO
+  ═══════════════════════════════════════════ -->
+  <section class="hero" id="hero">
+    <canvas id="particleCanvas"></canvas>
+
+    <div class="hero-bg-grid"></div>
+
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        <span>Maharashtra's Most Trusted Marketplace</span>
+      </div>
+      <h1 class="hero-title">
+        Buy & Sell Bikes<br />
+        <span class="hero-accent">Without The Risk</span>
+      </h1>
+      <p class="hero-subtitle">RC verified listings · AI fair pricing · Instant WhatsApp connect<br />Serving Pimpri-Chinchwad, Pune & all of Maharashtra</p>
+
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-num" data-target="2400">0</span>
+          <span class="stat-label">Bikes Listed</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-num" data-target="1840">0</span>
+          <span class="stat-label">Verified Sellers</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-num" data-target="98">0</span>
+          <span class="stat-label">% Satisfaction</span>
+        </div>
+      </div>
+
+      <div class="hero-cta">
+        <button class="btn btn-primary btn-lg pulse-btn" id="heroBrowse">Browse Bikes</button>
+        <button class="btn btn-ghost btn-lg" id="heroSell">+ List Your Bike Free</button>
+      </div>
+    </div>
+
+    <div class="hero-scroll-hint">
+      <span>Scroll to explore</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       FILTERS BAR
+  ═══════════════════════════════════════════ -->
+  <section class="filters-section" id="filtersSection">
+    <div class="container">
+
+      <div class="filters-row">
+        <!-- Category chips -->
+        <div class="filter-chips" id="filterChips">
+          <button class="chip active" data-filter="all">All Bikes</button>
+          <button class="chip" data-filter="scooter">🛵 Scooters</button>
+          <button class="chip" data-filter="commuter">🏍️ Commuter</button>
+          <button class="chip" data-filter="sports">⚡ Sports</button>
+          <button class="chip ev-chip" data-filter="ev">🟢 EV Only</button>
+        </div>
+
+        <!-- Sort + Budget -->
+        <div class="filter-controls">
+          <select id="sortSelect" class="filter-select" aria-label="Sort by">
+            <option value="newest">Newest First</option>
+            <option value="price-asc">Price: Low → High</option>
+            <option value="price-desc">Price: High → Low</option>
+            <option value="km-asc">Lowest KM</option>
+            <option value="verified">Verified First</option>
+          </select>
+
+          <select id="citySelect" class="filter-select" aria-label="City filter">
+            <option value="all">All Cities</option>
+            <option value="Pimpri">Pimpri</option>
+            <option value="Chinchwad">Chinchwad</option>
+            <option value="Pune">Pune</option>
+            <option value="Wakad">Wakad</option>
+            <option value="Hinjewadi">Hinjewadi</option>
+            <option value="Kothrud">Kothrud</option>
+          </select>
+
+          <button class="btn-icon" id="toggleEMI" title="EMI Calculator">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+            EMI
+          </button>
+        </div>
+      </div>
+
+      <!-- Budget Slider -->
+      <div class="budget-row">
+        <span class="budget-label">Budget:</span>
+        <input type="range" id="budgetSlider" min="10000" max="200000" value="200000" step="5000" class="range-slider" aria-label="Max budget" />
+        <span class="budget-value" id="budgetValue">₹2,00,000</span>
+      </div>
+
+      <!-- Results count -->
+      <div class="results-meta">
+        <span id="resultsCount">Loading bikes…</span>
+        <span class="verified-toggle">
+          <input type="checkbox" id="verifiedOnly" />
+          <label for="verifiedOnly">✅ Verified Only</label>
+        </span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       EMI CALCULATOR PANEL
+  ═══════════════════════════════════════════ -->
+  <section class="emi-panel" id="emiPanel">
+    <div class="container">
+      <div class="emi-card">
+        <h3 class="emi-title">⚡ EMI Calculator</h3>
+        <div class="emi-inputs">
+          <div class="emi-field">
+            <label>Bike Price (₹)</label>
+            <input type="number" id="emiPrice" value="65000" min="5000" max="500000" />
+          </div>
+          <div class="emi-field">
+            <label>Down Payment (₹)</label>
+            <input type="number" id="emiDown" value="15000" min="0" />
+          </div>
+          <div class="emi-field">
+            <label>Tenure (months)</label>
+            <select id="emiTenure">
+              <option value="10">10 months</option>
+              <option value="12" selected>12 months</option>
+              <option value="18">18 months</option>
+              <option value="24">24 months</option>
+              <option value="36">36 months</option>
+            </select>
+          </div>
+          <div class="emi-field">
+            <label>Interest Rate (%)</label>
+            <input type="number" id="emiRate" value="12" min="6" max="36" step="0.5" />
+          </div>
+        </div>
+        <button class="btn btn-primary" id="calcEMI">Calculate EMI</button>
+        <div class="emi-result" id="emiResult"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       LISTINGS GRID
+  ═══════════════════════════════════════════ -->
+  <main class="listings-section" id="listingsSection">
+    <div class="container">
+
+      <!-- Skeleton loaders -->
+      <div class="listings-grid" id="skeletonGrid">
+        <div class="skeleton-card"><div class="sk-img"></div><div class="sk-line w80"></div><div class="sk-line w60"></div><div class="sk-line w40"></div></div>
+        <div class="skeleton-card"><div class="sk-img"></div><div class="sk-line w80"></div><div class="sk-line w60"></div><div class="sk-line w40"></div></div>
+        <div class="skeleton-card"><div class="sk-img"></div><div class="sk-line w80"></div><div class="sk-line w60"></div><div class="sk-line w40"></div></div>
+        <div class="skeleton-card"><div class="sk-img"></div><div class="sk-line w80"></div><div class="sk-line w60"></div><div class="sk-line w40"></div></div>
+        <div class="skeleton-card"><div class="sk-img"></div><div class="sk-line w80"></div><div class="sk-line w60"></div><div class="sk-line w40"></div></div>
+        <div class="skeleton-card"><div class="sk-img"></div><div class="sk-line w80"></div><div class="sk-line w60"></div><div class="sk-line w40"></div></div>
+      </div>
+
+      <!-- Actual listings -->
+      <div class="listings-grid hidden" id="listingsGrid"></div>
+
+      <!-- Empty state -->
+      <div class="empty-state hidden" id="emptyState">
+        <div class="empty-icon">🏍️</div>
+        <h3>No bikes found</h3>
+        <p>Try adjusting your search or filters</p>
+        <button class="btn btn-ghost" id="clearFilters">Clear Filters</button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ═══════════════════════════════════════════
+       ADD LISTING MODAL
+  ═══════════════════════════════════════════ -->
+  <div class="modal-overlay hidden" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-glass">
+      <button class="modal-close" id="modalClose" aria-label="Close modal">✕</button>
+
+      <div class="modal-header">
+        <div class="modal-icon">🏍️</div>
+        <h2 id="modalTitle">List Your Bike</h2>
+        <p>Get RC verified · Reach 10,000+ buyers · Sell in 48 hrs</p>
+      </div>
+
+      <!-- Progress Steps -->
+      <div class="modal-steps">
+        <div class="step active" data-step="1"><span class="step-num">1</span><span class="step-label">Bike Info</span></div>
+        <div class="step-line"></div>
+        <div class="step" data-step="2"><span class="step-num">2</span><span class="step-label">RC Verify</span></div>
+        <div class="step-line"></div>
+        <div class="step" data-step="3"><span class="step-num">3</span><span class="step-label">Publish</span></div>
+      </div>
+
+      <form id="listingForm" novalidate>
+
+        <!-- Step 1: Bike Info -->
+        <div class="form-step active" id="step1">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="bikeModel">Bike Model *</label>
+              <input type="text" id="bikeModel" placeholder="e.g. Honda Activa 6G" required />
+            </div>
+            <div class="form-group">
+              <label for="bikeYear">Year *</label>
+              <input type="number" id="bikeYear" placeholder="2021" min="2000" max="2026" required />
+            </div>
+            <div class="form-group">
+              <label for="bikePrice">Asking Price (₹) *</label>
+              <input type="number" id="bikePrice" placeholder="65000" min="1000" required />
+            </div>
+            <div class="form-group">
+              <label for="bikeKm">KM Driven *</label>
+              <input type="number" id="bikeKm" placeholder="12000" min="0" required />
+            </div>
+            <div class="form-group">
+              <label for="bikeCity">City *</label>
+              <select id="bikeCity" required>
+                <option value="">Select City</option>
+                <option value="Pimpri">Pimpri</option>
+                <option value="Chinchwad">Chinchwad</option>
+                <option value="Pune">Pune</option>
+                <option value="Wakad">Wakad</option>
+                <option value="Hinjewadi">Hinjewadi</option>
+                <option value="Kothrud">Kothrud</option>
+                <option value="Nashik">Nashik</option>
+                <option value="Mumbai">Mumbai</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="bikePhone">WhatsApp Number *</label>
+              <input type="tel" id="bikePhone" placeholder="9876543210" pattern="[0-9]{10}" required />
+            </div>
+          </div>
+          <div class="form-group full">
+            <label for="bikeDesc">Description</label>
+            <textarea id="bikeDesc" placeholder="Any modifications, accidents, service history…" rows="3"></textarea>
+          </div>
+          <div class="form-group full">
+            <label class="checkbox-label">
+              <input type="checkbox" id="isEV" />
+              <span class="checkbox-custom"></span>
+              This is an Electric Vehicle (EV) ⚡
+            </label>
+          </div>
+          <button type="button" class="btn btn-primary btn-full" id="step1Next">Next: RC Verification →</button>
+        </div>
+
+        <!-- Step 2: RC Verify -->
+        <div class="form-step hidden" id="step2">
+          <div class="rc-info-box">
+            <span>🔒</span>
+            <p>RC verification checks for active loans, theft records & ownership status via VAHAN database mock.</p>
+          </div>
+          <div class="form-group">
+            <label for="rcNumber">RC (Registration) Number *</label>
+            <input type="text" id="rcNumber" placeholder="MH12AB1234" pattern="[A-Z]{2}[0-9]{2}[A-Z]{1,2}[0-9]{4}" style="text-transform:uppercase" required />
+          </div>
+          <div class="form-group">
+            <label for="ownerName">Owner Name (as per RC) *</label>
+            <input type="text" id="ownerName" placeholder="Rajesh Kumar" required />
+          </div>
+
+          <!-- RC Verification Status -->
+          <div class="rc-status hidden" id="rcStatus">
+            <div class="rc-status-inner" id="rcStatusInner"></div>
+          </div>
+
+          <div class="form-step-btns">
+            <button type="button" class="btn btn-ghost" id="step2Back">← Back</button>
+            <button type="button" class="btn btn-primary" id="verifyRC">
+              <span id="verifyBtnText">🔍 Verify RC</span>
+              <span class="spinner hidden" id="verifySpinner"></span>
+            </button>
+          </div>
+
+          <button type="button" class="btn btn-success btn-full hidden" id="step2Next">Continue to Publish →</button>
+        </div>
+
+        <!-- Step 3: Publish -->
+        <div class="form-step hidden" id="step3">
+          <div class="publish-preview" id="publishPreview"></div>
+          <div class="form-group full">
+            <label>AI Price Analysis</label>
+            <div class="price-analysis" id="priceAnalysis"></div>
+          </div>
+          <div class="form-step-btns">
+            <button type="button" class="btn btn-ghost" id="step3Back">← Back</button>
+            <button type="submit" class="btn btn-primary btn-full" id="publishBtn">🚀 Publish Listing</button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       BIKE DETAIL MODAL
+  ═══════════════════════════════════════════ -->
+  <div class="modal-overlay hidden" id="detailOverlay" role="dialog" aria-modal="true">
+    <div class="modal-glass detail-modal">
+      <button class="modal-close" id="detailClose" aria-label="Close">✕</button>
+      <div id="detailContent"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       CONFETTI CANVAS
+  ═══════════════════════════════════════════ -->
+  <canvas id="confettiCanvas" aria-hidden="true"></canvas>
+
+  <!-- ═══════════════════════════════════════════
+       TOAST
+  ═══════════════════════════════════════════ -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <!-- Back to top -->
+  <button class="back-to-top hidden" id="backToTop" aria-label="Back to top">↑</button>
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <span class="logo-text">Bike<span class="logo-accent">Bazaar</span></span>
+          <p>Pune's most trusted second-hand bike marketplace. RC verified listings, AI-powered pricing, zero brokerage.</p>
+          <div class="social-links">
+            <a href="#" aria-label="WhatsApp">💬</a>
+            <a href="#" aria-label="Instagram">📷</a>
+            <a href="#" aria-label="YouTube">▶️</a>
+          </div>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <a href="#">Browse Bikes</a>
+          <a href="#">Sell Your Bike</a>
+          <a href="#">RC Verification</a>
+          <a href="#">EMI Calculator</a>
+        </div>
+        <div class="footer-links">
+          <h4>Cities</h4>
+          <a href="#">Pimpri-Chinchwad</a>
+          <a href="#">Pune</a>
+          <a href="#">Wakad</a>
+          <a href="#">Hinjewadi</a>
+          <a href="#">Nashik</a>
+        </div>
+        <div class="footer-links">
+          <h4>Support</h4>
+          <a href="#">Help Center</a>
+          <a href="#">Report Fraud</a>
+          <a href="#">Contact Us</a>
+          <a href="#">Privacy Policy</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 BikeBazaar. Made with ❤️ in Pune, Maharashtra.</span>
+        <span>All RC checks are mock/demo only.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

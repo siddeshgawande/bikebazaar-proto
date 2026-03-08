@@ -1,0 +1,88 @@
+════════════════════════════════════════════
+  BIKEBAZAAR — GitHub Pages Deploy Guide
+════════════════════════════════════════════
+
+STEP 1 — Create GitHub Repo
+────────────────────────────
+1. Go to https://github.com/new
+2. Name your repo:  bikebazaar  (or any name)
+3. Set to PUBLIC  ← important for free Pages
+4. Click "Create repository"
+
+STEP 2 — Upload Files
+─────────────────────
+Option A (Drag & Drop — Easiest):
+  1. Open your new repo on GitHub
+  2. Click "Add file" → "Upload files"
+  3. Drag all 4 files into the browser:
+       index.html
+       style.css
+       script.js
+       manifest.json
+  4. Scroll down → click "Commit changes"
+
+Option B (Git CLI):
+  git init
+  git add .
+  git commit -m "BikeBazaar v1.0 🏍️"
+  git remote add origin https://github.com/YOUR_USERNAME/bikebazaar.git
+  git branch -M main
+  git push -u origin main
+
+STEP 3 — Enable GitHub Pages
+──────────────────────────────
+  1. Go to repo → Settings → Pages (left sidebar)
+  2. Under "Source" → Select branch: main
+  3. Folder: / (root)
+  4. Click Save
+
+STEP 4 — Your Live URL
+───────────────────────
+  https://YOUR_USERNAME.github.io/bikebazaar/
+
+  It takes ~1-2 minutes to go live after deploy.
+  Every time you push changes, site auto-updates!
+
+STEP 5 — Share with Friends
+─────────────────────────────
+  Share the URL on:
+  • WhatsApp groups 💬
+  • Instagram bio 📷
+  • LinkedIn 💼
+
+OPTIONAL — Custom Domain
+──────────────────────────
+  Buy a .in domain (~₹800/yr from GoDaddy/BigRock)
+  Add it in Settings → Pages → Custom domain
+  e.g.:  www.bikebazaar.in
+
+════════════════════════════════════════════
+  FILES SUMMARY
+════════════════════════════════════════════
+  index.html    — Main page (hero, listings, modals)
+  style.css     — All styles + animations + responsive
+  script.js     — Search, filter, RC verify, EMI calc
+  manifest.json — PWA (Add to Home Screen on mobile)
+
+════════════════════════════════════════════
+  FEATURES INCLUDED
+════════════════════════════════════════════
+  ✅ Real-time search (model + city)
+  ✅ Filter by category, city, budget, verified
+  ✅ 8 sample listings (Activa, Pulsar, RE, EV…)
+  ✅ RC Verification mock (VAHAN style)
+  ✅ AI Fair Price indicator
+  ✅ EMI Calculator (10–36 months)
+  ✅ Add Listing 3-step modal
+  ✅ Dark / Light theme toggle
+  ✅ Confetti on RC verification
+  ✅ WhatsApp share buttons
+  ✅ Particle hero background
+  ✅ Fully mobile responsive
+  ✅ PWA (Add to Home Screen)
+  ✅ Skeleton loading states
+  ✅ Back to top button
+
+════════════════════════════════════════════
+  Built with ❤️ for Pune, Maharashtra 🇮🇳
+════════════════════════════════════════════
